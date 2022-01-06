@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from .models import (
     User,
     Information,
@@ -9,7 +10,7 @@ from .models import (
     Message
 )
 
-admin.site.register(User)
+admin.site.register(User, UserAdmin)
 admin.site.register(Information)
 admin.site.register(Education)
 admin.site.register(Experience)
