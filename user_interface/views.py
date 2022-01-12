@@ -56,7 +56,7 @@ def user_auth(request):
         user_serializer = UserSerializer(user)
         return JsonResponse(
             user_serializer.data,
-            status=status.HTTP_201_CREATED,
+            status=status.HTTP_200_OK,
             safe=False
         )
     else:
