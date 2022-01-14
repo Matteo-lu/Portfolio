@@ -1,6 +1,6 @@
 #!/usr/bin/node
 
-const BASEURL = 'http://127.0.0.1:8000/api/v1/user'
+const LOCALURL = 'http://127.0.0.1:8000/api/v1/user'
 const SignUpComp = Vue.component('sign-up', {
     template: `
     <div class="main">
@@ -116,7 +116,7 @@ const SignUpComp = Vue.component('sign-up', {
             e.preventDefault();
         },
         createUser () {
-            const URL = `${BASEURL}/sign_up`
+            const URL = `${LOCALURL}/sign_up`
             fetch (URL, {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
@@ -127,7 +127,7 @@ const SignUpComp = Vue.component('sign-up', {
                     this.errors.push('The email already exists');
                 }
                 else {
-                    console.log('User created successfully')
+                    location.href = "http://127.0.0.1:5500/front/signin/index.html";
                 }
             })
         },

@@ -1,5 +1,6 @@
 #!/usr/bin/node
-const BASEURL = 'http://127.0.0.1:8000/api/v1/user'
+const LOCALURL = 'http://127.0.0.1:8000/api/v1/user'
+
 const LogInComp = Vue.component('sign-in', {
     template: `
     <div class="main">
@@ -80,7 +81,7 @@ const LogInComp = Vue.component('sign-in', {
             );
         },
         sendAuth() {
-            const URL = `${BASEURL}/log_in`
+            const URL = `${LOCALURL}/log_in`
             fetch (URL, {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
@@ -91,12 +92,14 @@ const LogInComp = Vue.component('sign-in', {
                     this.errors.push('The user does not exist')
                 }
                 else {
-                    this.changeToForm();
+                    localStorage.setItem("userEmail", this.user.email)
+                    window.location.href = "http://127.0.0.1:5500/front/form/index.html";
+                    location.href = "http://127.0.0.1:5500/front/form/index.html";
                 }
             })
         },
-        changeToForm() {
-            location.href = "http://127.0.0.1:5500/front/form/index.html";
+        exportUser() {
+            return this.user;
         }
     },
     mounted() {

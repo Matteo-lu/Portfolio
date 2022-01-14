@@ -1,5 +1,4 @@
 #!/usr/bin/node
-const BASEURL = 'http://127.0.0.1:8000/api/v1/user'
 const FormComp = Vue.component('form-comp', {
     template: `
     <div class="wrapper">
@@ -47,7 +46,9 @@ const FormComp = Vue.component('form-comp', {
             </div>
         </div>
         <div class="content">
-            <IntroductionComp v-show="showComp.introComp"/>
+            <IntroductionComp
+            v-show="showComp.introComp"
+            />
             <EducationComp v-show="showComp.eduComp"/>
             <ExperienceComp v-show="showComp.expeComp"/>
             <SkillsComp v-show="showComp.skillComp"/>
