@@ -19,8 +19,8 @@ let ExperienceComp = {
                     </div>
                     <div class="form-group">
                         <label>Years of experience</label>
-                        <select id="experience" name="experience" v-model="years">
-                            <option value="" selected disabled hidden>Choose here</option>
+                        <select style="color:gray" id="experience" name="experience" v-model="years">
+                            <option :value="null" selected disabled hidden>Choose here</option>
                             <option v-for="(item, index) in options">{{ item }}</option>
                         </select>
                     </div>
@@ -33,6 +33,16 @@ let ExperienceComp = {
                     <input type="submit" name="signup" id="introduction-id" class="form-submit" value="Save"/>
                 </div>
             </form>
+            <div class="courses-container">
+                <ExperienceSubComp v-for="(experienceItem, key) in experienceItems"
+                    :key=experienceItem.id
+                    :id="experienceItem.id"
+                    :company="experienceItem.company"
+                    :year="experienceItem.experience_year"
+                    :role="experienceItem.role"
+                    :description="experienceItem.experience_description"
+                    />
+            </div>
         </div>
     </div>
     `,
@@ -48,6 +58,7 @@ let ExperienceComp = {
                 experience_description: null,
             },
             years: null,
+            experienceItems: []
         }
     },
     methods: {
@@ -64,7 +75,7 @@ let ExperienceComp = {
         getExperience() {
             fetch(`${BASEURL}/experience`)
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => this.experienceItems = data);
         },
         createExperience() {
             const URL = `${BASEURL}/experience`
@@ -86,5 +97,8 @@ let ExperienceComp = {
     },
     mounted() {
         this.getExperience();
+    },
+    components: {
+        ExperienceSubComp,
     }
 }

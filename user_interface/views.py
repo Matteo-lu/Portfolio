@@ -8,8 +8,8 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
-from user_interface.models import User, Information, Education, Experience, Skill
-from user_interface.serializers import UserSerializer, InformationSerializer, EducationSerializer, ExperienceSerializer, SkillsSerializer
+from user_interface.models import User, Information, Education, Experience, Skill, Project
+from user_interface.serializers import UserSerializer, InformationSerializer, EducationSerializer, ExperienceSerializer, SkillsSerializer, ProjectSerializer
 from rest_framework.decorators import api_view
 from django.db import IntegrityError
 
@@ -69,17 +69,18 @@ def user_auth(request):
 @api_view()
 def user_get(request):
 
-    users = User.objects.all()
-    users_serialized = UserSerializer(
-        users,
-        many=True
-        )
+    if request.method == 'GET':
+        users = User.objects.all()
+        users_serialized = UserSerializer(
+            users,
+            many=True
+            )
 
-    return JsonResponse(
-        users_serialized.data,
-        status = status.HTTP_200_OK,
-        safe=False
-        )
+        return JsonResponse(
+            users_serialized.data,
+            status = status.HTTP_200_OK,
+            safe=False
+            )
 
 # form views
 
@@ -88,8 +89,6 @@ def Information_creation(request):
 
     if request.method == 'POST':
         data = request.data
-        # print(data)
-        # data_copy = data.copy()
         userEmail = data['userEmail']
         data.pop('userEmail')
         user = User.objects.get(email=userEmail)
@@ -121,6 +120,30 @@ def Information_creation(request):
             status = status.HTTP_200_OK,
             safe=False
             )
+
+@api_view(['DELETE', 'UPDATE', 'GET'])
+def Information_byId(request, pk):
+    try:
+        information = Information.objects.get(user=pk)
+    except Information.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'GET'):
+        information_serialized = InformationSerializer(
+            information,
+        )
+        return JsonResponse(
+                            information_serialized.data,
+                            status = status.HTTP_200_OK,
+                            safe=False
+                            )
+    if (request.method == 'DELETE'):
+        information.delete()
+        return JsonResponse(
+                            {'message': 'Successfully deleted'}
+                            )
 
 # Education views
 
@@ -162,6 +185,31 @@ def Education_creation(request):
                     safe=False
                     )
 
+@api_view(['DELETE', 'UPDATE', 'GET'])
+def Education_byId(request, user):
+    try:
+        education = Education.objects.filter(user=user)
+    except Education.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'GET'):
+        education_serialized = EducationSerializer(
+            education,
+            many=True
+        )
+        return JsonResponse(
+                            education_serialized.data,
+                            status = status.HTTP_200_OK,
+                            safe=False
+                            )
+    if (request.method == 'DELETE'):
+        education.delete()
+        return JsonResponse(
+                            {'message': 'Successfully deleted'}
+                            )
+
 # Experience views
 
 @api_view(['GET', 'POST'])
@@ -202,6 +250,31 @@ def Experience_creation(request):
                     safe=False
                     )
 
+@api_view(['DELETE', 'UPDATE', 'GET'])
+def Experience_byId(request, user):
+    try:
+        experience = Experience.objects.filter(user=user)
+    except Experience.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'GET'):
+        experience_serialized = ExperienceSerializer(
+            experience,
+            many=True
+        )
+        return JsonResponse(
+                            experience_serialized.data,
+                            status = status.HTTP_200_OK,
+                            safe=False
+                            )
+    if (request.method == 'DELETE'):
+        experience.delete()
+        return JsonResponse(
+                            {'message': 'Successfully deleted'}
+                            )
+
 # Skills views
 
 @api_view(['GET', 'POST'])
@@ -241,3 +314,85 @@ def Skills_creation(request):
                     status=status.HTTP_400_BAD_REQUEST,
                     safe=False
                     )
+
+@api_view(['DELETE', 'UPDATE', 'GET'])
+def Skill_byId(request, user):
+    try:
+        skill = Skill.objects.filter(user=user)
+    except Skill.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'GET'):
+        skills_serialized = SkillsSerializer(
+            skill,
+            many=True
+        )
+        return JsonResponse(
+                            skills_serialized.data,
+                            status = status.HTTP_200_OK,
+                            safe=False
+                            )
+    if (request.method == 'DELETE'):
+        skill.delete()
+        return JsonResponse(
+                            {'message': 'Successfully deleted'}
+                            )
+
+# Projects views
+
+@api_view(['GET', 'POST'])
+def Project_creation(request):
+
+    if request.method == 'GET':
+        project = Project.objects.all()
+        project_serializer = ProjectSerializer(
+            project,
+            many=True
+        )
+
+        return JsonResponse(
+            project_serializer.data,
+            status = status.HTTP_200_OK,
+            safe=False
+            )
+
+    if request.method == 'POST':
+        data = request.data
+        print(data)
+        # dataCopy = data.copy()
+        userEmail = data['userEmail']
+        data.pop('userEmail')
+        user = User.objects.get(email=userEmail)
+        data['user'] = user.id
+
+        project_serializer = ProjectSerializer(data=data)
+        if project_serializer.is_valid():
+            project_serializer.save()
+            return JsonResponse(
+                    project_serializer.data,
+                    status=status.HTTP_200_OK,
+                    safe=False
+                    )
+
+        return JsonResponse(
+                    project_serializer.errors,
+                    status=status.HTTP_400_BAD_REQUEST,
+                    safe=False
+                    )
+
+@api_view(['DELETE', 'UPDATE'])
+def Project_byId(request, pk):
+    try:
+        project = Project.objects.get(id=pk)
+    except Project.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'DELETE'):
+        project.delete()
+        return JsonResponse(
+                            {'message': 'Successfully deleted'}
+                            )

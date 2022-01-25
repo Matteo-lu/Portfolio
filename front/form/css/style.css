@@ -405,7 +405,7 @@ div.content .form-content .title {
   border-bottom: none;
   padding: 5px 39px;
   border-radius: 5px;
-  margin-top: 25px;
+  margin-top: 15px;
   cursor: pointer;
 }
 .form-submit:hover {
@@ -440,8 +440,194 @@ input[name="description"] {
 
 .errors p{
   padding: 10px;
-  /* background-color: rgba(255, 0, 0, 0.089); */
   color:red;
   font-size: 14px;
   border-radius: 4px;
 }
+
+/* card style */
+
+* {
+	box-sizing: border-box;
+}
+
+.courses-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.course {
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+	display: flex;
+	max-width: 100%;
+	margin: 20px 0;
+	overflow: hidden;
+	width: 450px;
+}
+
+.course h6 {
+	margin: 0;
+  margin-bottom: 10px;
+  opacity: 0.6;
+}
+
+.course h2 {
+  font-size: 16px;
+}
+
+.course-preview {
+	background-color: #6dabe4;
+	color: #fff;
+	padding: 15px;
+  width: 250px;
+}
+
+.course-preview a {
+	color: #fff;
+	display: inline-block;
+	font-size: 12px;
+	margin-top: 20px;
+	text-decoration: none;
+  cursor: pointer;
+}
+
+.course-info {
+  position: relative;
+	padding: 15px;
+	width: 100%;
+}
+
+.course-info p{
+  max-width: 250px;
+	font-size: 12px;
+  color: gray;
+  margin-top: 10px;
+}
+
+.course-info a{
+	border: 0;
+	color: #fff;
+	font-size: 10px;
+	padding: 4px 8px;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.githubLink {
+  background-color: rgb(88, 88, 88);
+}
+
+.demoVideo {
+  background-color: rgb(255, 116, 116);
+}
+
+.cardDescription {
+  margin-top: 10px;
+}
+
+.btn {
+	background-color: #6dabe4;
+	border: 0;
+	color: #fff;
+	font-size: 10px;
+	padding: 4px 8px;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {background-color: #4292dc;}
+
+.course-info i {
+  color: rgb(156, 156, 156);
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.course-info i:hover {color: rgb(121, 121, 121);}
+
+.diable {
+  color: gray;
+}
+
+div[name="Image"] {
+  background-image: url('https://definicion.de/wp-content/uploads/2009/12/paisaje-1.jpg')
+}
+
+/* Skill style */
+
+.technology {
+  padding-left: 0px;
+  text-align: center;
+}
+
+.technology li {
+  margin-top: 10px; /* Prevent double borders */
+  background-color: #6dabe4;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  display: inline-block;
+  padding: 10px 0px;
+  padding-left: 10px;
+  position: relative;
+  margin-right: 20px;
+  border-radius: 8px;
+}
+
+.close {
+  cursor: pointer;
+  top: 50%;
+  right: 0%;
+  transform: translate(0%, -50%);
+  padding: 10px 10px;
+  border-radius: 8px;
+}
+
+.close:hover {color: rgb(59, 59, 59);}
+
+.addTechnology {
+  padding: 0 10px;
+  margin-left: 20px;
+  background-color: #6dabe4;
+	border: 0;
+	color: #fff;
+	font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.addTechnology:hover {
+  background: #4292dc;
+}
+
+.course-info .delete {
+  position:absolute;
+  top:0;
+  right:10px;
+  color: gray;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.course-info .delete:hover {
+  color: black;
+}
+
+.project-form h2 {
+  background-color: #6dabe4;
+}
+
+/* .title {
+  padding: 40px 40px;
+  background-color: #6dabe4;
+  margin: 0 auto;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  color: white;
+} */

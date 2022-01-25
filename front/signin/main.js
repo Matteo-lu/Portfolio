@@ -50,7 +50,8 @@ const LogInComp = Vue.component('sign-in', {
                 email: null,
                 password: null
             },
-            errors: []
+            errors: [],
+            userResponse: null,
         }
     },
     methods: {
@@ -82,22 +83,25 @@ const LogInComp = Vue.component('sign-in', {
         },
         sendAuth() {
             const URL = `${LOCALURL}/log_in`
-            fetch (URL, {
+            fetch(URL, {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(this.user)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    this.errors.push('The user does not exist')
-                }
-                else {
-                    localStorage.setItem("userEmail", this.user.email)
-                    window.location.href = "http://127.0.0.1:5500/front/form/index.html";
-                    location.href = "http://127.0.0.1:5500/front/form/index.html";
-                }
-            })
-        },
+                }).then((response) => {
+                    if (!response.ok) {
+                        this.errors.push('The user does not exist')
+                    }
+                    else {
+                        response.json().then((data) => {
+                            this.userResponse = data
+                            console.log(this.userResponse)
+                            localStorage.setItem("userId", this.userResponse.id)
+                            localStorage.setItem("userEmail", this.user.email);
+                            location.href = "http://127.0.0.1:5500/front/form/index.html";
+                        });
+                    }
+            });
+        },  
         exportUser() {
             return this.user;
         }

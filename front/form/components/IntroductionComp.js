@@ -61,16 +61,6 @@ let IntroductionComp = {
                         </div>
                     </div>
                 </div>
-                <div class="one-line-group">
-                    <div class="form-group">
-                        <label for="formFile" class="form-label">Upload Avatar or Photo</label>
-                        <input class="form-control" type="file" id="form-image" accept="image/*">
-                    </div>
-                    <div class="form-group">
-                        <label for="formFile" class="form-label">Upload your CV</label>
-                        <input class="form-control" type="file" id="form-file" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*">
-                    </div>
-                </div>
                 <div class="errors">
                     <p v-if="errors.length">
                         <ul>
@@ -97,8 +87,6 @@ let IntroductionComp = {
                 github: null,
                 linkedin: null,
                 twitter: null,
-                avatar: null,
-                cv: null
             },
             first_name: null,
             last_name: null,
@@ -108,12 +96,6 @@ let IntroductionComp = {
         }
     },
     methods: {
-        onImagePicked(event) {
-            this.information.avatar = event.target.files[0];
-        },
-        onFilePicked(event) {
-            this.information.cv = event.target.files[0];
-        },
         entryPoint(event) {
             this.errors = [];
             if (this.information.email) {
@@ -163,6 +145,20 @@ let IntroductionComp = {
             }
         },
         createInformation() {
+            const URL = `${BASEURL}/information`
+            fetch (URL, {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(this.information)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response);
+                }
+                else {
+                    console.error(response.error)
+                }
+            })
         },
         validEmail(email) {
             return String(email)

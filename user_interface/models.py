@@ -13,8 +13,6 @@ class Information(models.Model):
     Location = models.CharField(max_length=254, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
-    avatar = models.ImageField(upload_to="avatar/", blank=True, null=True)
-    cv = models.FileField(upload_to="cv/", blank=True, null=True)
 
     # Social
     github = models.URLField(blank=True, null=True)
@@ -64,8 +62,8 @@ class Skill(models.Model):
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project_name = models.CharField(max_length=54, blank=True, null=True)
-    project_image = models.ImageField(upload_to="avatar/", blank=True, null=True)
     demo_link = models.URLField(blank=True, null=True)
+    technology = models.CharField(max_length=254, blank=True, null=True)
     github_link = models.URLField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 

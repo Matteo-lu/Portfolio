@@ -4,12 +4,13 @@ Module containing serealizer class
 
 
 from rest_framework import serializers
-from user_interface.models import User, Information, Education, Experience, Skill
+from user_interface.models import User, Information, Education, Experience, Skill, Project
 
 class UserSerializer(serializers.ModelSerializer):
     """
     Class to serialize user objects
     """
+
     class Meta:
         model = User
         fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name']
@@ -24,7 +25,7 @@ class InformationSerializer(serializers.ModelSerializer):
 
 class EducationSerializer(serializers.ModelSerializer):
     """
-    Class to serialize user user ducation
+    Class to serialize user user Education
     """
     class Meta:
         model = Education
@@ -32,7 +33,7 @@ class EducationSerializer(serializers.ModelSerializer):
 
 class ExperienceSerializer(serializers.ModelSerializer):
     """
-    Class to serialize user user ducation
+    Class to serialize user user Experience
     """
     class Meta:
         model = Experience
@@ -40,8 +41,18 @@ class ExperienceSerializer(serializers.ModelSerializer):
 
 class SkillsSerializer(serializers.ModelSerializer):
     """
-    Class to serialize user user ducation
+    Class to serialize user user Skills
     """
+
     class Meta:
         model = Skill
+        fields = ['skill_name', 'skill_level', 'user']
+
+class ProjectSerializer(serializers.ModelSerializer):
+    """
+    Class to serialize user user Project
+    """
+
+    class Meta:
+        model = Project
         fields = '__all__'

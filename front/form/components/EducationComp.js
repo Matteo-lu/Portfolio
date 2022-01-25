@@ -15,15 +15,15 @@ let EducationComp = {
             <div class="one-line-group">
                 <div class="form-group">
                     <label>Month</label>
-                    <select id="month" name="month" v-model="month">
-                        <option value="" selected disabled hidden>Choose here</option>
+                    <select style="color:gray" id="month" name="month" v-model="month">
+                        <option :value="null" disabled selected hidden>Choose here</option>
                         <option v-for="(item, key, index) in monthOptions">{{ item }}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Year</label>
-                    <select id="year" name="year" v-model="year">
-                        <option value="" selected disabled hidden>Choose here</option>
+                    <select style="color:gray" id="year" name="year" v-model="year">
+                        <option :value="null" disabled selected hidden>Choose a drink</option>
                         <option v-for="(item, key, index) in yearOptions">{{ item }}</option>
                     </select>
                 </div>
@@ -41,6 +41,17 @@ let EducationComp = {
             </div>
 
         </form>
+        <div class="courses-container">
+            <EducationSubComp v-for="(educationItem, key) in educationItems"
+            :key=educationItem.id
+            :id="educationItem.id"
+            :title="educationItem.title"
+            :year="educationItem.education_year"
+            :months = "monthOptions"
+            :institute="educationItem.institute"
+            :description="educationItem.education_description"
+            />
+        </div>
     </div>
     `,
     data () {
@@ -65,7 +76,8 @@ let EducationComp = {
                 education_description: null
             },
             year: null,
-            month: null
+            month: null,
+            educationItems: [],
         }
     },
     methods: {
@@ -89,7 +101,7 @@ let EducationComp = {
         getEducation() {
             fetch(`${BASEURL}/education`)
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => this.educationItems = data);
         },
         createEducation() {
             const URL = `${BASEURL}/education`
@@ -111,5 +123,8 @@ let EducationComp = {
     },
     mounted() {
         this.getEducation();
+    },
+    components: {
+        EducationSubComp,
     }
 }

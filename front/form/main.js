@@ -42,7 +42,7 @@ const FormComp = Vue.component('form-comp', {
                         </a>
                     </li>
                 </ul>
-                <button>Portfolio</button>
+                <button @click="toPortfolio" >Portfolio</button>
             </div>
         </div>
         <div class="content">
@@ -103,6 +103,16 @@ const FormComp = Vue.component('form-comp', {
             this.showComp.skillComp = false;
             this.showComp.proComp = true;
         },
+        showNothing() {
+            this.showComp.introComp = false;
+            this.showComp.eduComp = false;
+            this.showComp.expeComp = false;
+            this.showComp.skillComp = false;
+            this.showComp.proComp = false;
+        },
+        toPortfolio() {
+            location.href = "http://127.0.0.1:5500/front/portfolio/index.html";
+        }
     },
     mounted() {
     },
