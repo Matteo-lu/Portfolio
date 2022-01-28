@@ -69,7 +69,7 @@ let EducationComp = {
             '2020', '2021', '2022', '2023', '2024'],
 
             education: {
-                userEmail: localStorage.getItem("userEmail"),
+                userEmail: sessionStorage.getItem("userEmail"),
                 title: null,
                 education_year: null,
                 institute: null,
@@ -78,6 +78,7 @@ let EducationComp = {
             year: null,
             month: null,
             educationItems: [],
+            userId: sessionStorage.getItem("userId"),
         }
     },
     methods: {
@@ -99,7 +100,7 @@ let EducationComp = {
             }
         },
         getEducation() {
-            fetch(`${BASEURL}/education`)
+            fetch(`${BASEURL}/education/` + this.userId,)
             .then(response => response.json())
             .then(data => this.educationItems = data);
         },

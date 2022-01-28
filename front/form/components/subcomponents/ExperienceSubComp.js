@@ -17,7 +17,6 @@ let ExperienceSubComp = {
     `,
     data () {
         return {
-
         }
     },
     methods: {

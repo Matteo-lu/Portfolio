@@ -8,10 +8,11 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
-from user_interface.models import User, Information, Education, Experience, Skill, Project
-from user_interface.serializers import UserSerializer, InformationSerializer, EducationSerializer, ExperienceSerializer, SkillsSerializer, ProjectSerializer
+from user_interface.models import User, Information, Education, Experience, Skill, Project, Message
+from user_interface.serializers import UserSerializer, InformationSerializer, EducationSerializer, ExperienceSerializer, SkillsSerializer, ProjectSerializer, MessageSerializer
 from rest_framework.decorators import api_view
 from django.db import IntegrityError
+from django.core.mail import send_mail
 
 
 # User views
@@ -82,6 +83,26 @@ def user_get(request):
             safe=False
             )
 
+@api_view()
+def user_byId(request, pk):
+
+    try:
+        user = User.objects.get(id=pk)
+    except User.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'GET'):
+        user_serializer = UserSerializer(
+            user,
+        )
+        return JsonResponse(
+                            user_serializer.data,
+                            status = status.HTTP_200_OK,
+                            safe=False
+                            )
+
 # form views
 
 @api_view(['GET', 'POST'])
@@ -121,10 +142,10 @@ def Information_creation(request):
             safe=False
             )
 
-@api_view(['DELETE', 'UPDATE', 'GET'])
-def Information_byId(request, pk):
+@api_view(['GET'])
+def Information_byUser(request, user):
     try:
-        information = Information.objects.get(user=pk)
+        information = Information.objects.get(user=user)
     except Information.DoesNotExist:
         return JsonResponse(
                             {'message': 'The element does not exist'},
@@ -138,6 +159,16 @@ def Information_byId(request, pk):
                             information_serialized.data,
                             status = status.HTTP_200_OK,
                             safe=False
+                            )
+
+@api_view(['DELETE', 'UPDATE'])
+def Information_byId(request, pk):
+    try:
+        information = Information.objects.get(id=pk)
+    except Information.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
                             )
     if (request.method == 'DELETE'):
         information.delete()
@@ -382,17 +413,67 @@ def Project_creation(request):
                     safe=False
                     )
 
-@api_view(['DELETE', 'UPDATE'])
-def Project_byId(request, pk):
+@api_view(['DELETE', 'UPDATE', 'GET'])
+def Project_byId(request, user):
     try:
-        project = Project.objects.get(id=pk)
+        project = Project.objects.filter(user=user)
     except Project.DoesNotExist:
         return JsonResponse(
                             {'message': 'The element does not exist'},
                             status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'GET'):
+        project_serialized = ProjectSerializer(
+            project,
+            many=True
+        )
+        return JsonResponse(
+                            project_serialized.data,
+                            status = status.HTTP_200_OK,
+                            safe=False
                             )
     if (request.method == 'DELETE'):
         project.delete()
         return JsonResponse(
                             {'message': 'Successfully deleted'}
                             )
+
+# Send message
+
+@api_view(['POST', 'GET'])
+def Message_received(request):
+
+    if request.method == 'POST':
+        data = request.data
+
+        userEmail = data['userEmail']
+        data.pop('userEmail')
+        user = User.objects.get(email=userEmail)
+        data['user'] = user.id
+
+        message_serializer = MessageSerializer(data=data)
+        if message_serializer.is_valid():
+            message_serializer.save()
+            return JsonResponse(
+                    message_serializer.data,
+                    status=status.HTTP_200_OK,
+                    safe=False
+                    )
+
+        return JsonResponse(
+                    message_serializer.errors,
+                    status=status.HTTP_400_BAD_REQUEST,
+                    safe=False
+                    )
+    if request.method == 'GET':
+        message = Message.objects.all()
+        message_serializer = MessageSerializer(
+            message,
+            many=True
+        )
+
+        return JsonResponse(
+            message_serializer.data,
+            status = status.HTTP_200_OK,
+            safe=False
+            )

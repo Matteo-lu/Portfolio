@@ -20,13 +20,13 @@ let IntroComp = {
     },
     data () {
         return {
-            userId: localStorage.getItem("userId"),
+            userId: sessionStorage.getItem("userId"),
             userInformation: null
         }
     },
     methods: {
         getIntroducton () {
-            fetch(`${BASEURL}/information/` + this.userId)
+            fetch(`${BASEURL}/user/information/` + this.userId)
             .then(response => response.json())
             .then(data => this.userInformation = data);
         }

@@ -89,14 +89,13 @@ const LogInComp = Vue.component('sign-in', {
                 body: JSON.stringify(this.user)
                 }).then((response) => {
                     if (!response.ok) {
-                        this.errors.push('The user does not exist')
+                        this.errors.push('The user does not exist, if you are already registered please check email or password')
                     }
                     else {
                         response.json().then((data) => {
-                            this.userResponse = data
-                            console.log(this.userResponse)
-                            localStorage.setItem("userId", this.userResponse.id)
-                            localStorage.setItem("userEmail", this.user.email);
+                            this.userResponse = data;
+                            sessionStorage.setItem("userId", this.userResponse.id);
+                            sessionStorage.setItem("userEmail", this.user.email);
                             location.href = "http://127.0.0.1:5500/front/form/index.html";
                         });
                     }

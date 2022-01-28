@@ -49,13 +49,14 @@ let SkillsComp = {
     data () {
         return {
             skills: {
-                userEmail: localStorage.getItem("userEmail"),
+                userEmail: sessionStorage.getItem("userEmail"),
                 skill_name: null,
                 skill_level: null
             },
             level: null,
             skillItems: [],
-            errors: []
+            errors: [],
+            userId: sessionStorage.getItem("userId"),
         }
     },
     methods: {
@@ -75,7 +76,7 @@ let SkillsComp = {
             event.preventDefault();
         },
         getSkills() {
-            fetch(`${BASEURL}/skills`)
+            fetch(`${BASEURL}/skills/` + this.userId)
             .then(response => response.json())
             .then(data => this.skillItems = data);
         },

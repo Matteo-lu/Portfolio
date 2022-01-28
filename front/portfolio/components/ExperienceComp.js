@@ -1,6 +1,6 @@
 let ExperienceComp = {
     template: `
-    <section id="service" class="services-mf route">
+    <section id="experience" class="services-mf route">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -9,27 +9,29 @@ let ExperienceComp = {
                         Eperience
                         </h3>
                         <p class="subtitle-a">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                            My work experience
                         </p>
                         <div class="line-mf"></div>
                     </div>
                 </div>
             </div>
-            <div class="row" v-for="(experience, index) in userExperience">
-                <div class="col-md-4">
-                    <div class="service-box">
-                        <div class="service-ico">
-                            <span class="ico-circle"><i class="ion-monitor"></i></span>
+            <div class="row row-cols-1 row-cols-md-3 justify-content-center">
+                <div v-for="(experience, index) in userExperience">
+                    <div class="col mb-4" style="height:90%; overflow-wrap:break-word; word-wrap:break-word;">
+                        <div class="service-box">
+                            <div class="service-ico">
+                                <span class="ico-circle"><i class="fas fa-briefcase"></i></span>
                             </div>
                             <div class="service-content">
-                            <h2 class="s-title">{{ experience.role }}</h2>
-                            <b><p class="s-description text-center">{{ experience.company }}</p></b>
-                            <i><p class="s-description text-center">
-                                {{ experience.experience_year }}
-                            </p></i>
-                            <p class="s-description text-center">
-                                {{ experience.experience_description }}
-                            </p>
+                                <h2 class="s-title">{{ experience.role }}</h2>
+                                <p class="s-description text-center">{{ experience.company }}</p>
+                                <p class="s-description text-center" v-if="experience.experience_year">
+                                    {{ experience.experience_year }} years of experience
+                                </p>
+                                <p class="s-description text-center">
+                                    {{ experience.experience_description }}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,7 +44,7 @@ let ExperienceComp = {
     },
     data () {
         return {
-            userId: localStorage.getItem("userId"),
+            userId: sessionStorage.getItem("userId"),
             userExperience: null
         }
     },

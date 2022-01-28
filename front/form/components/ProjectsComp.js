@@ -67,7 +67,7 @@ let ProjectsComp = {
     data () {
         return {
             project: {
-                userEmail: localStorage.getItem("userEmail"),
+                userEmail: sessionStorage.getItem("userEmail"),
                 project_name: null,
                 demo_link: null,
                 github_link: null,
@@ -77,6 +77,7 @@ let ProjectsComp = {
             errors: [],
             projectItems: [],
             technologies: null,
+            userId: sessionStorage.getItem("userId"),
         }
     },
     methods: {
@@ -107,7 +108,7 @@ let ProjectsComp = {
             event.preventDefault();
         },
         getProject() {
-            fetch(`${BASEURL}/project`)
+            fetch(`${BASEURL}/project/` + this.userId)
             .then(response => response.json())
             .then(data => this.projectItems = data);
         },
@@ -172,9 +173,6 @@ let ProjectsComp = {
                 }
                 this.project.technology = techString;
             }
-        },
-        updateElement() {
-
         }
     },
     mounted() {

@@ -51,14 +51,15 @@ let ExperienceComp = {
             options: [0,0.5,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,
                 16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
             experience: {
-                userEmail: localStorage.getItem("userEmail"),
+                userEmail: sessionStorage.getItem("userEmail"),
                 company: null,
                 role: null,
                 education_year: null,
                 experience_description: null,
             },
             years: null,
-            experienceItems: []
+            experienceItems: [],
+            userId: sessionStorage.getItem("userId"),
         }
     },
     methods: {
@@ -73,7 +74,7 @@ let ExperienceComp = {
             this.experience.education_year = parseInt(this.years)
         },
         getExperience() {
-            fetch(`${BASEURL}/experience`)
+            fetch(`${BASEURL}/experience/` + this.userId)
             .then(response => response.json())
             .then(data => this.experienceItems = data);
         },

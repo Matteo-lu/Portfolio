@@ -77,7 +77,7 @@ let IntroductionComp = {
     data () {
         return {
             information: {
-                userEmail: localStorage.getItem("userEmail"),
+                userEmail: sessionStorage.getItem("userEmail"),
                 full_name: null,
                 title: null,
                 about: null,
@@ -178,6 +178,5 @@ let IntroductionComp = {
         }
     },
     mounted() {
-        // window.localStorage.clear();
     }
 }

@@ -31,10 +31,6 @@ const SignUpComp = Vue.component('sign-up', {
                                 <label><i class="zmdi zmdi-lock-outline"></i></label>
                                 <input v-model="repeated" type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
                             </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-                            </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                             </div>
@@ -73,7 +69,6 @@ const SignUpComp = Vue.component('sign-up', {
     },
     methods: {
         checkInputs: function (e) {
-            console.log(e)
             this.errors = [];
 
             if (!this.name) {
@@ -111,7 +106,6 @@ const SignUpComp = Vue.component('sign-up', {
                 this.user.password = this.fisrtPassword
                 this.splitName();
                 this.createUser();
-                this.changeToForm();
             }
             e.preventDefault();
         },
@@ -124,9 +118,8 @@ const SignUpComp = Vue.component('sign-up', {
             })
             .then(response => {
                 if (!response.ok) {
-                    this.errors.push('The email already exists');
-                }
-                else {
+                    this.errors.push('The email already exists, try to sign in');
+                } else {
                     location.href = "http://127.0.0.1:5500/front/signin/index.html";
                 }
             })
@@ -137,7 +130,11 @@ const SignUpComp = Vue.component('sign-up', {
             if (name.includes(' ')) {
                 let arrayName = name.split(' ')
                 this.user.first_name = arrayName[0];
-                for (last_name in arrayName) {
+                var index = arrayName.indexOf(this.user.first_name);
+                if (index !== -1) {
+                    arrayName.splice(index, 1);
+                };
+                for (last_name of arrayName) {
                     stringLastName = stringLastName + last_name + ' ';
                 }
                 this.user.last_name = stringLastName;
@@ -153,12 +150,8 @@ const SignUpComp = Vue.component('sign-up', {
             .match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
-        },
-        changeToForm() {
-            location.href = "http://127.0.0.1:5500/front/form/index.html";
         }
     },
     mounted() {
-        // this.createUser()
     }
 })

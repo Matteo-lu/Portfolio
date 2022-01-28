@@ -4,7 +4,7 @@ Module containing serealizer class
 
 
 from rest_framework import serializers
-from user_interface.models import User, Information, Education, Experience, Skill, Project
+from user_interface.models import User, Information, Education, Experience, Skill, Project, Message
 
 class UserSerializer(serializers.ModelSerializer):
     """
@@ -55,4 +55,13 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
+        fields = '__all__'
+
+class MessageSerializer(serializers.ModelSerializer):
+    """
+    Class to serialize user user Messages
+    """
+
+    class Meta:
+        model = Message
         fields = '__all__'
