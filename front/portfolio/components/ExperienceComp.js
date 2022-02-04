@@ -1,6 +1,6 @@
 let ExperienceComp = {
     template: `
-    <section id="experience" class="services-mf route" v-if="userExperience.length">
+    <section id="experience" class="services-mf route" v-if="userExperience">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -34,9 +34,11 @@ let ExperienceComp = {
                                 <p class="s-description text-center" v-if="!experience.start_date && experience.finish_date">
                                     Finish date: {{ experience.finish_date }}
                                 </p>
-                                <p class="s-description text-center">
-                                    {{ experience.experience_description }}
-                                </p>
+                                <div class="description">
+                                    <p class="s-description text-center">
+                                        {{ experience.experience_description }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

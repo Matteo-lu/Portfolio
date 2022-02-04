@@ -1,6 +1,6 @@
 let EducationComp = {
     template: `
-    <section id="service" class="services-mf route" v-if="userEducation.length">
+    <section id="service" class="services-mf route" v-if="userEducation">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -34,9 +34,11 @@ let EducationComp = {
                                 <p class="s-description text-center" v-if="!education.start_date && education.finish_date">
                                     Finish date: {{ education.finish_date }}
                                 </p>
-                                <p class="s-description text-center">
-                                    {{ education.education_description }}
-                                </p>
+                                <div class="description">
+                                    <p class="s-description text-center">
+                                        {{ education.education_description }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -801,7 +801,7 @@ a:hover {
 }
 
 .service-box .s-description {
-  color: #4e4e4e;
+  color: gray;
 }
 
 /*======================================
@@ -1134,3 +1134,6 @@ footer .credits a {
   100% { transform: rotate(360deg); }
 }
 
+.service-content .description .text-center{
+  text-align: justify !important;
+}
