@@ -1,6 +1,6 @@
 let ExperienceComp = {
     template: `
-    <section id="experience" class="services-mf route">
+    <section id="experience" class="services-mf route" v-if="userExperience.length">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -25,8 +25,14 @@ let ExperienceComp = {
                             <div class="service-content">
                                 <h2 class="s-title">{{ experience.role }}</h2>
                                 <p class="s-description text-center">{{ experience.company }}</p>
-                                <p class="s-description text-center" v-if="experience.experience_year">
-                                    {{ experience.experience_year }} years of experience
+                                <p class="s-description text-center" v-if="experience.start_date && experience.finish_date">
+                                    From {{ experience.start_date }} to {{ experience.finish_date }}
+                                </p>
+                                <p class="s-description text-center" v-if="experience.start_date && !experience.finish_date">
+                                    Start date: {{ experience.start_date }}
+                                </p>
+                                <p class="s-description text-center" v-if="!experience.start_date && experience.finish_date">
+                                    Finish date: {{ experience.finish_date }}
                                 </p>
                                 <p class="s-description text-center">
                                     {{ experience.experience_description }}
@@ -50,7 +56,7 @@ let ExperienceComp = {
     },
     methods: {
         getExperience () {
-            fetch(`${BASEURL}/experience/` + this.userId)
+            fetch(`${BASEURL}/user/experience/` + this.userId)
             .then(response => response.json())
             .then(data => this.userExperience = data);
         },

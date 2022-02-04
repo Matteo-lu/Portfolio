@@ -24,20 +24,20 @@ let SkillsComp = {
                         </select>
                     </div>
                 </div>
-                <div class="errors">
-                    <p v-if="errors.length">
-                        <ul>
-                            <li v-for="error in errors">{{ error }}</li>
-                        </ul>
-                    </p>
+                <div class="isa_error" v-if="errors.length">
+                    <div v-for="error in errors">
+                        <i class="fa fa-times-circle"></i>
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="form-group form-button">
                     <input type="submit" name="signup" id="skills-id" class="form-submit" value="Save"/>
                 </div>
             </form>
+            <hr>
             <div class="courses-container">
                 <SkillsSubComp v-for="(skillItem, key) in skillItems"
-                :key=skillItem.id
+                :key="skillItem.id"
                 :id="skillItem.id"
                 :skill="skillItem.skill_name"
                 :level="skillItem.skill_level"
@@ -76,7 +76,7 @@ let SkillsComp = {
             event.preventDefault();
         },
         getSkills() {
-            fetch(`${BASEURL}/skills/` + this.userId)
+            fetch(`${BASEURL}/user/skills/` + this.userId)
             .then(response => response.json())
             .then(data => this.skillItems = data);
         },
@@ -91,6 +91,7 @@ let SkillsComp = {
                 if (response.ok) {
                     console.log(response);
                     this.getSkills();
+                    this.clearForm();
                 }
                 else {
                     console.error(response.error)
@@ -110,6 +111,11 @@ let SkillsComp = {
             if (this.level == 'Expert'){
                 this.skills.skill_level = 4;
             }
+        },
+        clearForm (){
+            this.skills.skill_name = null;
+            this.skills.skill_level = null;
+            this.level = null;
         }
     },
     mounted() {

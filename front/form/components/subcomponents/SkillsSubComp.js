@@ -9,7 +9,7 @@ let SkillsSubComp = {
         <div class="course-info">
             <h6>Level</h6>
             <h2 v-text="skill_level"></h2>
-            <a class="delete" @click="deleteItem(id)">x</a>
+            <a class="delete" @click="deleteItem">x</a>
         </div>
     </div>
     `,
@@ -38,8 +38,8 @@ let SkillsSubComp = {
                 this.skill_level = 'Expert';
             }
         },
-        deleteItem (id) {
-            fetch(`${BASEURL}/skills/` + id, {
+        deleteItem () {
+            fetch(`${BASEURL}/skills/` + this.id, {
             method: 'DELETE',
             })
             .then(response => response.json())

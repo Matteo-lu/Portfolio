@@ -64,7 +64,7 @@ let AboutComp = {
             .then(data => this.userInformation = data);
         },
         getSkills () {
-            fetch(`${BASEURL}/skills/` + this.userId)
+            fetch(`${BASEURL}/user/skills/` + this.userId)
             .then(response => response.json())
             .then(data => this.skillsInformation = data);
         }

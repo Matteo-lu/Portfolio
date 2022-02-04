@@ -8,7 +8,7 @@ let ProjectSubComp = {
         </div>
         <div class="course-info">
             <h6>Project Info</h6>
-            <a class="delete" @click="deleteItem(id)">x</a>
+            <a class="delete" @click="deleteItem">x</a>
             <a v-if="videoExist" class="githubLink" :href="github">Github link</a>
             <a v-if="githubExist" class="demoVideo" :href="video">Demo video</a>
             <p>{{ description | descriptionSize }}</p>
@@ -57,8 +57,8 @@ let ProjectSubComp = {
                 this.githubExist = true;
             }
         },
-        deleteItem (id) {
-            fetch(`${BASEURL}/project/` + id, {
+        deleteItem () {
+            fetch(`${BASEURL}/project/` + this.id, {
             method: 'DELETE',
             })
             .then(response => response.json())

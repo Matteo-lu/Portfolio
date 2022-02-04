@@ -51,7 +51,7 @@ let ProjectsComp = {
     },
     methods: {
         getProject () {
-            fetch(`${BASEURL}/project/` + this.userId)
+            fetch(`${BASEURL}/user/project/` + this.userId)
             .then(response => response.json())
             .then(data => this.userProject = data);
         },

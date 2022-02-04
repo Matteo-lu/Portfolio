@@ -46,7 +46,7 @@ class SkillsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Skill
-        fields = ['skill_name', 'skill_level', 'user']
+        fields = '__all__'
 
 class ProjectSerializer(serializers.ModelSerializer):
     """

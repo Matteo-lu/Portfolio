@@ -8,9 +8,9 @@ let ExperienceSubComp = {
         </div>
         <div class="course-info">
             <h6>Company</h6>
-            <a class="delete" @click="deleteItem(id)">x</a>
+            <a class="delete" @click="deleteItem">x</a>
             <h2>{{ company | titleSize }}</h2>
-            <p v-text="year"></p>
+            <p>From {{ startDate }} to {{ finishDate }}</p>
             <p>{{ description | descriptionSize }}</p>
         </div>
     </div>
@@ -20,8 +20,8 @@ let ExperienceSubComp = {
         }
     },
     methods: {
-        deleteItem (id) {
-            fetch(`${BASEURL}/experience/` + id, {
+        deleteItem () {
+            fetch(`${BASEURL}/experience/` + this.id, {
             method: 'DELETE',
             })
             .then(response => response.json())
@@ -37,7 +37,8 @@ let ExperienceSubComp = {
     props: [
         'id',
         'company',
-        'year',
+        'startDate',
+        'finishDate',
         'role',
         'description'
     ],

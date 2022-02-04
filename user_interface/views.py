@@ -105,6 +105,8 @@ def user_byId(request, pk):
 
 # form views
 
+# Information Views
+
 @api_view(['GET', 'POST'])
 def Information_creation(request):
 
@@ -161,10 +163,11 @@ def Information_byUser(request, user):
                             safe=False
                             )
 
-@api_view(['DELETE', 'UPDATE'])
+@api_view(['DELETE', 'PUT'])
 def Information_byId(request, pk):
     try:
         information = Information.objects.get(id=pk)
+        data = request.data
     except Information.DoesNotExist:
         return JsonResponse(
                             {'message': 'The element does not exist'},
@@ -174,6 +177,15 @@ def Information_byId(request, pk):
         information.delete()
         return JsonResponse(
                             {'message': 'Successfully deleted'}
+                            )
+    if (request.method == 'PUT'):
+        information_serialized = InformationSerializer(information, data)
+        if information_serialized.is_valid():
+            information_serialized.save()
+            return JsonResponse(information_serialized.data)
+        return JsonResponse(
+                            information_serialized.errors,
+                            status=status.HTTP_404_NOT_FOUND
                             )
 
 # Education views
@@ -216,10 +228,35 @@ def Education_creation(request):
                     safe=False
                     )
 
-@api_view(['DELETE', 'UPDATE', 'GET'])
-def Education_byId(request, user):
+@api_view(['DELETE', 'PUT', 'GET'])
+def Education_byUser(request, user):
     try:
         education = Education.objects.filter(user=user)
+    except Education.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'GET'):
+        education_serialized = EducationSerializer(
+            education,
+            many=True
+        )
+        return JsonResponse(
+                            education_serialized.data,
+                            status = status.HTTP_200_OK,
+                            safe=False
+                            )
+    if (request.method == 'DELETE'):
+        education.delete()
+        return JsonResponse(
+                            {'message': 'Successfully deleted'}
+                            )
+
+@api_view(['DELETE', 'PUT', 'GET'])
+def Education_byId(request, id):
+    try:
+        education = Education.objects.filter(id=id)
     except Education.DoesNotExist:
         return JsonResponse(
                             {'message': 'The element does not exist'},
@@ -281,10 +318,35 @@ def Experience_creation(request):
                     safe=False
                     )
 
-@api_view(['DELETE', 'UPDATE', 'GET'])
-def Experience_byId(request, user):
+@api_view(['DELETE', 'PUT', 'GET'])
+def Experience_byUser(request, user):
     try:
         experience = Experience.objects.filter(user=user)
+    except Experience.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'GET'):
+        experience_serialized = ExperienceSerializer(
+            experience,
+            many=True
+        )
+        return JsonResponse(
+                            experience_serialized.data,
+                            status = status.HTTP_200_OK,
+                            safe=False
+                            )
+    if (request.method == 'DELETE'):
+        experience.delete()
+        return JsonResponse(
+                            {'message': 'Successfully deleted'}
+                            )
+
+@api_view(['DELETE', 'PUT', 'GET'])
+def Experience_byId(request, id):
+    try:
+        experience = Experience.objects.filter(id=id)
     except Experience.DoesNotExist:
         return JsonResponse(
                             {'message': 'The element does not exist'},
@@ -346,10 +408,35 @@ def Skills_creation(request):
                     safe=False
                     )
 
-@api_view(['DELETE', 'UPDATE', 'GET'])
-def Skill_byId(request, user):
+@api_view(['DELETE', 'PUT', 'GET'])
+def Skill_byUser(request, user):
     try:
         skill = Skill.objects.filter(user=user)
+    except Skill.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'GET'):
+        skills_serialized = SkillsSerializer(
+            skill,
+            many=True
+        )
+        return JsonResponse(
+                            skills_serialized.data,
+                            status = status.HTTP_200_OK,
+                            safe=False
+                            )
+    if (request.method == 'DELETE'):
+        skill.delete()
+        return JsonResponse(
+                            {'message': 'Successfully deleted'}
+                            )
+
+@api_view(['DELETE', 'PUT', 'GET'])
+def Skill_byId(request, id):
+    try:
+        skill = Skill.objects.filter(id=id)
     except Skill.DoesNotExist:
         return JsonResponse(
                             {'message': 'The element does not exist'},
@@ -413,10 +500,35 @@ def Project_creation(request):
                     safe=False
                     )
 
-@api_view(['DELETE', 'UPDATE', 'GET'])
-def Project_byId(request, user):
+@api_view(['DELETE', 'PUT', 'GET'])
+def Project_byUser(request, user):
     try:
         project = Project.objects.filter(user=user)
+    except Project.DoesNotExist:
+        return JsonResponse(
+                            {'message': 'The element does not exist'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
+    if (request.method == 'GET'):
+        project_serialized = ProjectSerializer(
+            project,
+            many=True
+        )
+        return JsonResponse(
+                            project_serialized.data,
+                            status = status.HTTP_200_OK,
+                            safe=False
+                            )
+    if (request.method == 'DELETE'):
+        project.delete()
+        return JsonResponse(
+                            {'message': 'Successfully deleted'}
+                            )
+
+@api_view(['DELETE', 'PUT', 'GET'])
+def Project_byId(request, id):
+    try:
+        project = Project.objects.filter(id=id)
     except Project.DoesNotExist:
         return JsonResponse(
                             {'message': 'The element does not exist'},

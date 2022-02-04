@@ -362,7 +362,7 @@ a:hover {
 .line-mf {
   width: 40px;
   height: 5px;
-  background-color: #6dabe4;
+  background-color: #45b1f8;
   margin: 0 auto;
 }
 
@@ -381,7 +381,7 @@ a:hover {
   content: '';
   position: absolute;
   height: 3px;
-  background-color: #6dabe4;
+  background-color: #45b1f8;
   width: 100px;
   bottom: -12px;
 }
@@ -420,12 +420,12 @@ a:hover {
   border-radius: 50%;
   line-height: 1.4;
   margin: 0 15px 0 0;
-  box-shadow: 0 0 0 3px #6dabe4;
+  box-shadow: 0 0 0 3px #45b1f8;
   transition: all 500ms ease;
 }
 
 .socials .ico-circle:hover {
-  background-color: #6dabe4;
+  background-color: #45b1f8;
   color: #fff;
   box-shadow: 0 0 0 3px #cde1f8;
   transition: all 500ms ease;
@@ -450,7 +450,7 @@ a:hover {
 }
 
 .list-ico span {
-  color: #6dabe4;
+  color: #45b1f8;
   margin-right: 10px;
 }
 
@@ -464,7 +464,7 @@ a:hover {
   line-height: 1.55;
   margin: 0 auto;
   text-align: center;
-  box-shadow: 0 0 0 10px #6dabe4;
+  box-shadow: 0 0 0 10px #45b1f8;
   display: block;
 }
 
@@ -511,7 +511,7 @@ a:hover {
   position: fixed;
   width: 42px;
   height: 42px;
-  background-color: #6dabe4;
+  background-color: #45b1f8;
   opacity: .7;
   font-size: 1.6rem;
   line-height: 1.5;
@@ -530,7 +530,7 @@ a:hover {
 .back-to-top {
   position: fixed;
   display: none;
-  background: #6dabe4;
+  background: #45b1f8;
   color: #fff;
   width: 44px;
   height: 44px;
@@ -568,7 +568,7 @@ a:hover {
   top: calc(50% - 30px);
   left: calc(50% - 30px);
   border: 6px solid #f2f2f2;
-  border-top: 6px solid #6dabe4;
+  border-top: 6px solid #45b1f8;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -712,7 +712,7 @@ a:hover {
 
 .intro-single .breadcrumb {
   background-color: transparent;
-  color: #6dabe4;
+  color: #45b1f8;
 }
 
 .intro-single .breadcrumb .breadcrumb-item:before {
@@ -757,7 +757,7 @@ a:hover {
 
 .skill-mf .progress .progress-bar {
   height: .7rem;
-  background-color: #6dabe4;
+  background-color: #45b1f8;
 }
 
 .progress-bar[name="expert"] {
@@ -779,7 +779,7 @@ a:hover {
 .service-box:hover .ico-circle {
   transition: all 500ms ease;
   color: #fff;
-  background-color: #6dabe4;
+  background-color: #45b1f8;
   box-shadow: 0 0 0 10px #cde1f8;
 }
 
@@ -864,17 +864,17 @@ a:hover {
 }
 
 .work-content .w-more .w-ctegory {
-  color: #6dabe4;
+  color: #45b1f8;
 }
 
 .work-content .w-like {
   font-size: 2.5rem;
-  color: #6dabe4;
+  color: #45b1f8;
   float: right;
 }
 
 .work-content .w-like a {
-  color: #6dabe4;
+  color: #45b1f8;
 }
 
 .work-content .w-like .num-like {
@@ -948,8 +948,8 @@ footer .credits a {
 ======================================*/
 
 #sendmessage {
-  color: #6dabe4;
-  border: 1px solid #6dabe4;
+  color: #45b1f8;
+  border: 1px solid #45b1f8;
   text-align: center;
   padding: 15px;
   font-weight: 600;
@@ -1116,7 +1116,7 @@ footer .credits a {
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #6dabe4;
+  border-top: 16px solid #45b1f8;
   width: 120px;
   height: 120px;
   -webkit-animation: spin 2s linear infinite; /* Safari */

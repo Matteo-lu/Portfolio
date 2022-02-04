@@ -28,7 +28,7 @@ let ProjectsComp = {
                     <label>Technologies used</label>
                     <div class="one-line-group">
                         <input v-model="technologies" name="technologies" id="technologies" placeholder="Eg. C programming, node js..."/>
-                        <button type="button" class="addTechnology" @click="addTechnology">+</button>
+                        <button type="button" class="addTechnology" @click="addTechnology">Add</button>
                     </div>
                     <p v-if="project.technology.length">
                         <ul class="technology">
@@ -39,17 +39,17 @@ let ProjectsComp = {
                 <span class="tag label label-info">
                     <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a> 
                 </span>
-                <div class="errors">
-                    <p v-if="errors.length">
-                        <ul>
-                            <li v-for="error in errors">{{ error }}</li>
-                        </ul>
-                    </p>
+                <div class="isa_error" v-if="errors.length">
+                    <div v-for="error in errors">
+                        <i class="fa fa-times-circle"></i>
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="form-group form-button">
                     <input type="submit" name="signup" id="project-id" class="form-submit" value="Save"/>
                 </div>
             </form>
+            <hr>
             <div class="courses-container">
                 <ProjectSubComp v-for="(projectItem, key) in projectItems"
                 :key=projectItem.id
@@ -85,10 +85,10 @@ let ProjectsComp = {
             this.errors = [];
 
             if (!this.project.project_name) {
-                this.errors.push('The Project Name field is mandatory');
+                this.errors.push('The Project Name is mandatory');
             }
             if (!this.project.description) {
-                this.errors.push('The Description field is mandatory');
+                this.errors.push('The Description is mandatory');
             }
             if (this.project.demo_link) {
                 if (!this.isValidHttpUrl(this.project.demo_link)) {
@@ -103,12 +103,13 @@ let ProjectsComp = {
             if (!this.errors.length) {
                 this.convertTechnologies();
                 this.createProject();
+                this.clearForm();
                 this.project.technology = [];
             }
             event.preventDefault();
         },
         getProject() {
-            fetch(`${BASEURL}/project/` + this.userId)
+            fetch(`${BASEURL}/user/project/` + this.userId)
             .then(response => response.json())
             .then(data => this.projectItems = data);
         },
@@ -173,6 +174,14 @@ let ProjectsComp = {
                 }
                 this.project.technology = techString;
             }
+        },
+        clearForm () {
+            this.project.project_name = null;
+            this.project.demo_link = null;
+            this.project.github_link = null;
+            this.project.description = null;
+            this.project.technology = [];
+            this.technologies = [];
         }
     },
     mounted() {
@@ -182,38 +191,3 @@ let ProjectsComp = {
         ProjectSubComp,
     }
 }
-
-// <form
-//             v-for="(element, key, index) in projectItems"
-//             id="project-form"
-//             class="project-form">
-//                 <div class="form-group">
-//                     <a class="closeModal" href="#">X</a>
-//                 </div>
-//                 <div class="form-group">
-//                     <label>Project Name</label>
-//                     <input :value="projectElemnt.project_name" type="text" name="project-name" id="project-name" placeholder="Eg. Web application ..."/>
-//                 </div>
-//                 <div class="form-group">
-//                         <label>Demo video</label>
-//                         <input v-model="projectElemnt.demo_link" value="projectElemnt.demo_link" type="demo" name="demo" placeholder="Link to demo video">
-//                     </div>
-//                 <div class="form-group">
-//                     <label>Github link</label>
-//                     <input v-model="projectElemnt.github_link" value="projectElemnt.github_link" type="text" name="github-link" id="github-link" placeholder="Project Github link"/>
-//                 </div>
-//                 <div class="form-group">
-//                     <label>Description</label>
-//                     <textarea v-model="projectElemnt.description" value="projectElemnt.description" rows="5" cols="132" name="textarea" id="project-description" placeholder="Project description"></textarea>
-//                 </div>
-//                 <div class="form-group">
-//                     <label>Technologies used</label>
-//                     <div class="one-line-group">
-//                         <input name="technologies" id="technologies" placeholder="Eg. C programming, node js..."/>
-//                         <button type="button" class="addTechnology">+</button>
-//                     </div>
-//                 </div>
-//                 <div class="form-group form-button">
-//                     <input type="submit" name="signup" id="project-id" class="form-submit" value="Save"/>
-//                 </div>
-//             </form>

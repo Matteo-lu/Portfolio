@@ -43,7 +43,7 @@ const SignUpComp = Vue.component('sign-up', {
                         </form>
                     </div>
                     <div class="signup-image">
-                        <figure><img src="images/signup-image.jpg" alt="sing up image"></figure>
+                        <figure><img src="images/signUpImage.png" alt="sing up image"></figure>
                         <a href="http://127.0.0.1:5500/front/signin/index.html" class="signup-image-link">I am already member</a>
                     </div>
                 </div>

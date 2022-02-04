@@ -25,12 +25,13 @@ class Information(models.Model):
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=54, blank=True, null=True)
-    education_year = models.IntegerField(blank=True, null=True)
+    start_date = models.CharField(max_length=54, blank=True, null=True)
+    finish_date = models.CharField(max_length=54, blank=True, null=True)
     institute = models.CharField(max_length=200, blank=True, null=True)
     education_description = models.TextField(blank=True, null=True)
 
     class Meta:
-        ordering = ['-education_year']
+        ordering = ['-finish_date']
 
     def __str__(self) -> str:
         return super().__str__()
@@ -38,12 +39,13 @@ class Education(models.Model):
 class Experience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=54, blank=True, null=True)
-    experience_year = models.IntegerField(blank=True, null=True)
+    start_date = models.CharField(max_length=54, blank=True, null=True)
+    finish_date = models.CharField(max_length=54, blank=True, null=True)
     company = models.CharField(max_length=54, blank=True, null=True)
     experience_description = models.TextField(blank=True, null=True)
 
     class Meta:
-        ordering = ['-experience_year']
+        ordering = ['-finish_date']
 
     def __str__(self) -> str:
         return super().__str__()

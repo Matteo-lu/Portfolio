@@ -2,7 +2,6 @@ from django.urls import path
 from user_interface.views import *
 from django.urls import re_path
 
-
 urlpatterns = [
     re_path('user/sign_up?$', user_creation),
     re_path('user/log_in?$', user_auth),
@@ -12,12 +11,16 @@ urlpatterns = [
     path('user/information/<user>',Information_byUser),
     path('information/<pk>',Information_byId),
     re_path('education/?$',Education_creation),
-    path('education/<user>',Education_byId),
+    path('user/education/<user>',Education_byUser),
+    path('education/<id>',Education_byId),
     re_path('experience/?$',Experience_creation),
-    path('experience/<user>',Experience_byId),
+    path('user/experience/<user>',Experience_byUser),
+    path('experience/<id>',Experience_byId),
     re_path('skills/?$',Skills_creation),
-    path('skills/<user>',Skill_byId),
+    path('user/skills/<user>',Skill_byUser),
+    path('skills/<id>',Skill_byId),
     re_path('project/?$',Project_creation),
-    path('project/<user>',Project_byId),
+    path('user/project/<user>',Project_byUser),
+    path('project/<id>',Project_byId),
     re_path('message/?$',Message_received),
 ]

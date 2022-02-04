@@ -10,7 +10,7 @@ const LogInComp = Vue.component('sign-in', {
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
+                        <figure><img src="images/signInImage.png" alt="sing up image"></figure>
                         <a href="http://127.0.0.1:5500/front/signup/index.html" class="signup-image-link">Create an account</a>
                     </div>
 

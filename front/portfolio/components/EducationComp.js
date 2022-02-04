@@ -1,6 +1,6 @@
 let EducationComp = {
     template: `
-    <section id="service" class="services-mf route" v-if="userEducation">
+    <section id="service" class="services-mf route" v-if="userEducation.length">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -25,7 +25,15 @@ let EducationComp = {
                             <div class="service-content">
                                 <h2 class="s-title">{{ education.title }}</h2>
                                 <p class="s-description text-center">{{ education.institute }}</p>
-                                <p class="s-description text-center">{{ education.education_year.toString().substring(0, 2) }}, {{ education.education_year.toString().substring(2, 6) }}</p>
+                                <p class="s-description text-center" v-if="education.start_date && education.finish_date">
+                                    From {{ education.start_date }} to {{ education.finish_date }}
+                                </p>
+                                <p class="s-description text-center" v-if="education.start_date && !education.finish_date">
+                                    Start date: {{ education.start_date }}
+                                </p>
+                                <p class="s-description text-center" v-if="!education.start_date && education.finish_date">
+                                    Finish date: {{ education.finish_date }}
+                                </p>
                                 <p class="s-description text-center">
                                     {{ education.education_description }}
                                 </p>
@@ -48,7 +56,7 @@ let EducationComp = {
     },
     methods: {
         getEducation () {
-            fetch(`${BASEURL}/education/` + this.userId)
+            fetch(`${BASEURL}/user/education/` + this.userId)
             .then(response => response.json())
             .then(data => this.userEducation = data);
         },
